@@ -1,6 +1,6 @@
 const wrapper = document.querySelector(".wrapper");  //container div
 inputPart = wrapper.querySelector(".input-part"); // input section
-infoTxt = inputPart.querySelector(".info-txt"); // please enter... kısmı
+infoTxt = inputPart.querySelector(".info-txt"); // please enter...
 inputField = inputPart.querySelector("input"); // input alanı
 locationBtn = inputPart.querySelector("button");
 wIcon = document.querySelector("img");
@@ -24,7 +24,7 @@ searchIcon.addEventListener("click", e => {
 });
 
 locationBtn.addEventListener("click", () => {
-    //eğer tarayıcı lokasyonu destekliyorsa
+ 
     if(navigator.geolocation){
         navigator.geolocation.getCurrentPosition(onSuccess, onError);
     }else{
@@ -33,20 +33,20 @@ locationBtn.addEventListener("click", () => {
 });
 
 function requestApi(city){
-    //api alıp json object dönüştürme
+
 api = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=8641075dda9ea5d5c961c48c00929bec`;
 fetchData();
 };
 
 function onSuccess(position){
-    //enlem boylam. Coords objesinden getiriyoruz burada.
+  
 const {latitude, longitude} = position.coords; 
 api = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=8641075dda9ea5d5c961c48c00929bec`;
 fetchData();
 };
 
 function onError(error){
-    infoTxt.innerText = error.message; //tarayıcının vereceği error ekrana basar.
+    infoTxt.innerText = error.message; 
     infoTxt.classList.add("error");
 };
 
@@ -54,7 +54,7 @@ function fetchData(){
     infoTxt.innerText = "Getting weather details...";
     infoTxt.classList.add("pending");
     fetch(api).then(response => response.json()).then(result => weatherDetails(result));
-    //then func. api sonucu ile weatherDetails çağırır.
+   
 };
 
 function weatherDetails(info){
@@ -62,7 +62,7 @@ function weatherDetails(info){
         infoTxt.classList.replace("pending", "error");
         infoTxt.innerText = `${inputField.value} isn't a valid city name`;
     }else {
-        //console'dan alınan bilgiler
+        
     const city = info.name;
     const country = info.sys.country;
     const {description, id} = info.weather[0];
@@ -92,7 +92,7 @@ function weatherDetails(info){
         infoTxt.classList.remove("pending", "error"); 
         infoTxt.innerText = "";
         inputField.value ="";
-        wrapper.classList.add("active"); // hava durumunu gösterir.
+        wrapper.classList.add("active"); 
     }
 };
 
